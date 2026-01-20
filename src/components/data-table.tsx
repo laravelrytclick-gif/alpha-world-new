@@ -796,17 +796,23 @@ export function DataTable({
     []
   )
 
-  React.useEffect(() => {
-    const newData = 
-      activeTab === "blogs" ? blogsData : 
-      activeTab === "colleges" ? collegesData : 
-      activeTab === "courses" ? coursesData :
-      activeTab === "countries" ? countriesData :
-      initialData
-    setData(newData)
-    setRowSelection({})
-    setPagination({ pageIndex: 0, pageSize: 10 })
-  }, [activeTab, blogsData, collegesData, coursesData, countriesData, initialData])
+  // Dummy data for each tab (replace with real data as needed)
+  const blogsData: z.infer<typeof schema>[] = []
+  const collegesData: z.infer<typeof schema>[] = []
+  const coursesData: z.infer<typeof schema>[] = []
+  const countriesData: z.infer<typeof schema>[] = []
+  
+    React.useEffect(() => {
+      const newData = 
+        activeTab === "blogs" ? blogsData : 
+        activeTab === "colleges" ? collegesData : 
+        activeTab === "courses" ? coursesData :
+        activeTab === "countries" ? countriesData :
+        initialData
+      setData(newData)
+      setRowSelection({})
+      setPagination({ pageIndex: 0, pageSize: 10 })
+    }, [activeTab, blogsData, collegesData, coursesData, countriesData, initialData])
 
   const sortableId = React.useId()
   const sensors = useSensors(
@@ -923,6 +929,7 @@ export function DataTable({
   }
 
   return (
+    <>
     <Tabs
       defaultValue="outline"
       className="w-full flex-col justify-start gap-6"
@@ -1706,7 +1713,6 @@ export function DataTable({
       </div>
     )}
     </>
-
   )
 }
 
