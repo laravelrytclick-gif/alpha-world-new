@@ -8,17 +8,16 @@ import { notFound, useParams } from 'next/navigation';
 import { useCourses } from '@/contexts/CoursesContext';
 
 export default function CourseDetailPage() {
-  const { actions } = useCourses();
-  const params = useParams();
-  const slug = params.slug as string;
+  const { getCourseBySlug } = useCourses();
+const params = useParams();
+const slug = params.slug as string;
 
-  // Find the course by slug
-  const course = actions.getCourseBySlug(slug);
+const course = getCourseBySlug(slug);
 
-  // If course not found, show 404
-  if (!course) {
-    notFound();
-  }
+if (!course) {
+  notFound();
+}
+
 
   return (
     <div className="bg-white min-h-screen font-sans">
@@ -98,7 +97,7 @@ export default function CourseDetailPage() {
                 <h3 className="text-2xl font-bold text-slate-900 mb-6">Curriculum</h3>
                 <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {course.curriculum.map((subject, index) => (
+                    {course.curriculum.map((subject: string, index: number) => (
                       <div key={index} className="flex items-center gap-3">
                         <CheckCircle className="text-green-500 flex-shrink-0" size={20} />
                         <span className="font-medium text-slate-900">{subject}</span>
@@ -115,7 +114,7 @@ export default function CourseDetailPage() {
                 <h3 className="text-2xl font-bold text-slate-900 mb-6">Admission Requirements</h3>
                 <div className="bg-gradient-to-r from-orange-50 to-amber-50 rounded-2xl p-8">
                   <div className="space-y-4">
-                    {course.requirements.map((requirement, index) => (
+                    {course.requirements.map((requirement: string, index: number) => (
                       <div key={index} className="flex items-start gap-3">
                         <Award className="text-orange-500 flex-shrink-0 mt-0.5" size={20} />
                         <span className="text-slate-700 leading-relaxed">{requirement}</span>
@@ -138,7 +137,7 @@ export default function CourseDetailPage() {
                         {course.careerPath}
                       </p>
                       <div className="flex flex-wrap gap-2">
-                        {course.prospects.split(',').map((career, index) => (
+                        {course.prospects.split(',').map((career: string, index: number) => (
                           <span
                             key={index}
                             className="inline-flex items-center gap-2 bg-white px-3 py-1 rounded-full text-sm font-medium text-green-700 border border-green-200"

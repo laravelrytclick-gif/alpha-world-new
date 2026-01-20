@@ -34,22 +34,22 @@ export interface BlogPost {
   };
 }
 
-export interface Course {
-  id: number;
-  slug: string;
+export type Course = {
+  _id: string;
+  slug: string; // ✅ REQUIRED
   title: string;
-  category: string;
   description: string;
+  category: string;
   duration: string;
   popularIn: string;
   avgTuition: string;
   prospects: string;
-  overview?: string;
+  overview: string;
   curriculum?: string[];
   requirements?: string[];
   careerPath?: string;
-  image?: string;
-}
+};
+
 
 export interface CollegeFilters {
   location?: string;

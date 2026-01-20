@@ -18,6 +18,7 @@ const courseCategories = ["All", "Business", "Technology", "Medicine", "Engineer
 
 interface CoursesState {
   courses: Course[];
+  
   filteredCourses: Course[];
   filters: CourseFilters;
   sortBy: CourseSortOption;
@@ -54,6 +55,7 @@ const initialState: CoursesState = {
   isLoading: false,
   error: null,
 };
+
 
 /* ------------------ Reducer ------------------ */
 
@@ -215,7 +217,6 @@ export function CoursesProvider({ children }: { children: ReactNode }) {
 
 
 export function useCourses() {
-  
   const context = useContext(CoursesContext);
   if (!context) {
     throw new Error("useCourses must be used within CoursesProvider");
@@ -223,21 +224,21 @@ export function useCourses() {
 
   const { state, dispatch } = context;
 
-const getPaginatedCourses = () => {
-  if (!Array.isArray(state.filteredCourses)) {
-    return [];
-  }
-
-  const startIndex = (state.currentPage - 1) * state.itemsPerPage;
-  return state.filteredCourses.slice(
-    startIndex,
-    startIndex + state.itemsPerPage
-  );
-};
-
+  const getPaginatedCourses = () => {
+    const startIndex = (state.currentPage - 1) * state.itemsPerPage;
+    return state.filteredCourses.slice(
+      startIndex,
+      startIndex + state.itemsPerPage
+    );
+  };
 
   const getTotalPages = () => {
     return Math.ceil(state.filteredCourses.length / state.itemsPerPage);
+  };
+
+  // ✅ ADD THIS
+  const getCourseBySlug = (slug: string) => {
+    return state.courses.find((course: Course) => course.slug === slug);
   };
 
   return {
@@ -245,5 +246,6 @@ const getPaginatedCourses = () => {
     dispatch,
     getPaginatedCourses,
     getTotalPages,
+    getCourseBySlug, // ✅ EXPOSE
   };
-}   
+}
