@@ -40,6 +40,7 @@ export type College = {
   image: string;
   tags: string[];
   status: string;
+  slug: string;
 };
 
 type Filters = {
@@ -59,6 +60,7 @@ type CollegesContextType = {
     getPaginatedColleges: () => College[];
     getTotalPages: () => number;
     refetch: () => Promise<void>;
+    getCollegeBySlug: (slug: string) => College | undefined;
   };
 };
 
@@ -111,6 +113,10 @@ useEffect(() => {
     const start = (currentPage - 1) * itemsPerPage;
     return filteredColleges.slice(start, start + itemsPerPage);
   };
+  const getCollegeBySlug = (slug: string) => {
+  return colleges.find((college) => college.slug === slug);
+};
+
 
   const getTotalPages = () =>
     Math.ceil(filteredColleges.length / itemsPerPage);
@@ -128,6 +134,7 @@ useEffect(() => {
       getPaginatedColleges,
       getTotalPages,
       refetch: fetchColleges,
+        getCollegeBySlug,
     },
   };
 

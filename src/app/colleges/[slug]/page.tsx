@@ -8,17 +8,16 @@ import { notFound, useParams } from 'next/navigation';
 import { useColleges } from '@/contexts/CollegesContext';
 
 export default function CollegeDetailPage() {
-  const { actions } = useColleges();
-  const params = useParams();
-  const slug = params.slug as string;
+const { actions } = useColleges();
+const params = useParams();
+const slug = params.slug as string;
 
-  // Find the college by slug
-  const college = actions.getCollegeBySlug(slug);
+const college = actions.getCollegeBySlug(slug);
 
-  // If college not found, show 404
-  if (!college) {
-    notFound();
-  }
+if (!college) {
+  notFound();
+}
+
 
   return (
     <div className="bg-white min-h-screen font-sans">
@@ -87,7 +86,7 @@ export default function CollegeDetailPage() {
               <div className="prose prose-lg max-w-none text-gray-700">
                 <p className="text-lg leading-relaxed mb-6">
                   {college.name} is a prestigious {college.type?.toLowerCase() || 'educational institution'}
-                  located in {college.location}. Founded in {college.founded || 'N/A'}, this institution
+                  located in {college.location}. Founded in {college.rating || 'N/A'}, this institution
                   has established itself as a leader in higher education, offering world-class programs
                   and research opportunities.
                 </p>
@@ -136,17 +135,17 @@ export default function CollegeDetailPage() {
                     <Users className="text-purple-500" size={24} />
                     <h4 className="font-semibold text-slate-900">Acceptance Rate</h4>
                   </div>
-                  <p className="text-2xl font-bold text-purple-600">{college.acceptance}</p>
+                  <p className="text-2xl font-bold text-purple-600">{college.admission_process}</p>
                   <p className="text-sm text-gray-600 mt-1">Competitive admissions</p>
                 </div>
 
-                {college.employability && (
+                {college.contactInfo && (
                   <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-6 rounded-2xl border border-orange-100">
                     <div className="flex items-center gap-3 mb-3">
                       <Building2 className="text-orange-500" size={24} />
                       <h4 className="font-semibold text-slate-900">Employability</h4>
                     </div>
-                    <p className="text-2xl font-bold text-orange-600">{college.employability}</p>
+                    <p className="text-2xl font-bold text-orange-600">{college.eligibility}</p>
                     <p className="text-sm text-gray-600 mt-1">Graduate employment rate</p>
                   </div>
                 )}
@@ -162,13 +161,13 @@ export default function CollegeDetailPage() {
                   </div>
                 )}
 
-                {college.students && (
+                {college.eligibility && (
                   <div className="bg-gradient-to-r from-indigo-50 to-blue-50 p-6 rounded-2xl border border-indigo-100">
                     <div className="flex items-center gap-3 mb-3">
                       <Users className="text-indigo-500" size={24} />
                       <h4 className="font-semibold text-slate-900">Student Body</h4>
                     </div>
-                    <p className="text-2xl font-bold text-indigo-600">{college.students}</p>
+                    <p className="text-2xl font-bold text-indigo-600">{college.image_url}</p>
                     <p className="text-sm text-gray-600 mt-1">Total enrolled students</p>
                   </div>
                 )}
@@ -186,7 +185,7 @@ export default function CollegeDetailPage() {
                     </div>
                     <div>
                       <p className="text-sm text-gray-500">Founded</p>
-                      <p className="font-semibold text-slate-900">{college.founded || 'N/A'}</p>
+                      <p className="font-semibold text-slate-900">{college.location || 'N/A'}</p>
                     </div>
                   </div>
 
@@ -276,18 +275,18 @@ export default function CollegeDetailPage() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Acceptance</span>
-                    <span className="font-semibold text-slate-900">{college.acceptance}</span>
+                    <span className="font-semibold text-slate-900">{college.type}</span>
                   </div>
-                  {college.employability && (
+                  {college.eligibility && (
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Employability</span>
-                      <span className="font-semibold text-slate-900">{college.employability}</span>
+                      <span className="text-gray-600">Eligibility</span>
+                      <span className="font-semibold text-slate-900">{college.eligibility}</span>
                     </div>
                   )}
-                  {college.founded && (
+                  {college.name && (
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Founded</span>
-                      <span className="font-semibold text-slate-900">{college.founded}</span>
+                      <span className="font-semibold text-slate-900">{college.established}</span>
                     </div>
                   )}
                 </div>
