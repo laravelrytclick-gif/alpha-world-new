@@ -390,6 +390,15 @@ const getBlogContent = (slug: string) => {
   };
   return contents[slug] || "";
 };
+const getImageSrc = (image?: string) => {
+  if (!image) return "/placeholder.jpg";
+
+  if (image.startsWith("http")) return image;
+  if (image.startsWith("/")) return image;
+
+  return `/uploads/${image}`;
+};
+
 
 export default function BlogPostPage() {
   const { actions } = useBlogs();
@@ -442,7 +451,13 @@ export default function BlogPostPage() {
             {article.author && (
               <div className="flex items-center gap-3">
                 <div className="relative w-8 h-8 rounded-full overflow-hidden">
-                  <Image src={article.author.avatar} alt={article.author.name} fill className="object-cover" />
+                  <Image
+  src={getImageSrc(article.author.avatar)}
+  alt={article.author.name}
+  fill
+  className="object-cover"
+/>
+
                 </div>
                 <div>
                   <p className="font-medium text-slate-900 text-sm">{article.author.name}</p>
@@ -454,7 +469,13 @@ export default function BlogPostPage() {
 
           {/* Featured Image */}
           <div className="relative h-64 md:h-96 w-full rounded-2xl overflow-hidden mb-8">
-            <Image src={article.image} alt={article.title} fill className="object-cover" />
+            <Image
+  src={getImageSrc(article.image)}
+  alt={article.title}
+  fill
+  className="object-cover"
+/>
+
           </div>
         </header>
 

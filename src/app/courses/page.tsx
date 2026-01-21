@@ -77,7 +77,7 @@ export default function CoursesPage() {
           {/* Courses Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {paginatedCourses.map((course:any) => (
-              <div key={course.id} className="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-lg transition-all flex flex-col">
+              <div key={course._id} className="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-lg transition-all flex flex-col">
                 {/* Category Badge */}
                 <div className="mb-4">
                   <span className="px-3 py-1 bg-green-50 text-green-600 text-xs font-bold rounded-md uppercase">

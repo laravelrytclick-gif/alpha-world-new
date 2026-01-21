@@ -4,12 +4,11 @@ import College from "@/models/College";
 
 export async function GET(
   req: Request,
-  context: { params: Promise<{ slug: string }> }
+  { params }: { params: { slug: string } }
 ) {
   await connectDB();
 
-  // UNWRAP params (IMPORTANT)
-  const { slug } = await context.params;
+  const { slug } = params;
 
   const college = await College.findOne({ slug });
 
@@ -20,8 +19,5 @@ export async function GET(
     );
   }
 
-  return NextResponse.json({
-    success: true,
-    college,
-  });
+  return NextResponse.json({ success: true, college });
 }

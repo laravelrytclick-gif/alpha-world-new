@@ -10,13 +10,16 @@ import { useColleges } from '@/contexts/CollegesContext';
 export default function CollegeDetailPage() {
 const { actions } = useColleges();
 const params = useParams();
-const slug = params.slug as string;
+const slug = params?.slug as string;
 
 const college = actions.getCollegeBySlug(slug);
+
+
 
 if (!college) {
   notFound();
 }
+
 
 
   return (
@@ -31,13 +34,14 @@ if (!college) {
 
       {/* Hero Section */}
       <section className="relative h-96 md:h-[500px] overflow-hidden">
-        <Image
-          src={college.image}
-          alt={college.name}
-          fill
-          className="object-cover"
-          priority
-        />
+       <Image
+  src={college.image || college.image_url || "/college-placeholder.jpg"}
+  alt={college.name}
+  fill
+  className="object-cover"
+  priority
+/>
+
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
         {/* Hero Content */}

@@ -192,10 +192,14 @@ export function BlogsProvider({ children }: { children: ReactNode }) {
       dispatch({ type: "SET_LOADING", payload: true });
 
       try {
-        const res = await fetch("/api/content");
+        const res = await fetch("/api/blogs");
         if (!res.ok) throw new Error("Failed to fetch blogs");
         const data = await res.json();
-        dispatch({ type: "SET_BLOGS", payload: data });
+dispatch({
+  type: "SET_BLOGS",
+  payload: Array.isArray(data.blogs) ? data.blogs : [],
+});
+
       } catch (err: any) {
         dispatch({ type: "SET_ERROR", payload: err.message });
       }

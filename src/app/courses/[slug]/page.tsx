@@ -66,11 +66,14 @@ if (!course) {
                 <p className="text-sm text-gray-600">Tuition</p>
                 <p className="font-bold text-slate-900">{course.avgTuition}</p>
               </div>
-              <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
+              {/* <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
                 <Briefcase className="w-8 h-8 text-orange-600 mx-auto mb-2" />
                 <p className="text-sm text-gray-600">Career Path</p>
-                <p className="font-bold text-slate-900 text-sm">{course.prospects.split(',')[0]}</p>
-              </div>
+                <p className="font-bold text-slate-900 text-sm">
+  {course.prospects.split(',')[0]}
+</p>
+
+              </div> */}
             </div>
           </div>
         </div>

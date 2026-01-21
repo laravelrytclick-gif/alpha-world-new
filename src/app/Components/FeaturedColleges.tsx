@@ -1,5 +1,5 @@
 "use client"
-import React, { use, useState } from "react";
+import React, { use, useState,useEffect } from "react";
 import {
   MapPin,
   Heart,
@@ -13,10 +13,11 @@ import {
   Briefcase,
   ArrowRight
 } from "lucide-react";
-
+import Link from "next/link";
 type College = {
   name: string;
   location: string;
+  slug: string;
   tuition: string;
   acceptance: string;
   undergrad: string;
@@ -29,21 +30,19 @@ type College = {
 
 export default function FeaturedColleges() {
   const [collegeData,setCollegeData] = useState<College[]>([]);
-
-  React.useEffect(() => {
-     try
-      { 
-        fetch("/api/colleges")
-        .then((res) => res.json())
-        .then((data) => { 
-          setCollegeData(data.slice(0,6)); // Get only first 6 colleges
-        }
+useEffect(() => {
+    fetch("/api/colleges")
+      .then((res) => res.json())
+      .then((data) => {
+       
+        setCollegeData(
+          Array.isArray(data.colleges) ? data.colleges.slice(0, 6) : []
         );
-      }
-      catch (error) {
+      })
+      .catch((error) => {
         console.error("Error fetching colleges:", error);
-      }
-  },[]);
+      });
+  }, []);
     // Simulate fetching data from an API
   return (
     <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-white via-green-50/20 to-slate-50 relative overflow-hidden">
@@ -143,12 +142,19 @@ export default function FeaturedColleges() {
                 <div className="flex items-center gap-3">
                   <label className="flex items-center gap-2 cursor-pointer flex-1">
                     <input type="checkbox" className="rounded border-slate-300 text-green-600 focus:ring-green-500" />
-                    <span className="text-xs text-slate-500">Compare</span>
+                    {/* <span className="text-xs text-slate-500">Compare</span> */}
                   </label>
-                  <button className="flex items-center gap-1.5 text-green-600 font-bold text-sm hover:text-green-700 transition-all group/btn">
-                    View Profile
-                    <ArrowRight size={14} className="transition-transform group-hover/btn:translate-x-1" />
-                  </button>
+  <Link href={`/colleges/${college.slug}`}>
+
+  <button className="flex items-center gap-1.5 text-green-600 font-bold text-sm hover:text-green-700 transition-all group/btn">
+    View Profile
+    <ArrowRight
+      size={14}
+      className="transition-transform group-hover/btn:translate-x-1"
+    />
+  </button>
+</Link>
+
                 </div>
               </div>
         </div>
